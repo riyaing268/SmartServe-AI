@@ -179,6 +179,31 @@ docker-compose up --build
 
 ---
 
+### Option 3: Production Cloud Deployment (Render + Vercel)
+
+#### Step 1: Deploy Backend to Render
+1. Go to [Render Dashboard](https://dashboard.render.com/) and click **New + > Web Service**.
+2. Connect your GitHub repository `https://github.com/riyaing268/SmartServe-AI`.
+3. Configure the service:
+   - **Name:** `smartserve-backend`
+   - **Runtime:** `Python 3`
+   - **Build Command:** `pip install -r backend/requirements.txt`
+   - **Start Command:** `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
+4. *(Optional)* Under **Environment Variables**, add `GEMINI_API_KEY` (if omitted, the local rule-based agent operates with 100% functionality).
+5. Click **Deploy Web Service** and copy your live backend URL (e.g. `https://smartserve-backend.onrender.com`).
+
+#### Step 2: Deploy Frontend to Vercel
+1. Go to [Vercel Dashboard](https://vercel.com/) and click **Add New > Project**.
+2. Import your GitHub repository `https://github.com/riyaing268/SmartServe-AI`.
+3. Under **Build and Output Settings**:
+   - Framework Preset: `Vite` (auto-detected)
+   - Root Directory: `./`
+4. Under **Environment Variables**, add:
+   - `VITE_API_URL` = `https://<YOUR-RENDER-BACKEND-URL>.onrender.com`
+5. Click **Deploy**. Your frontend is live with full cloud capabilities!
+
+---
+
 ## 8. Automated Testing & Verification
 
 Run the full pytest suite:

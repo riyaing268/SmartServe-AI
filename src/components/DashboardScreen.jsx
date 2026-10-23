@@ -19,7 +19,7 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, 
   BarChart, Bar, CartesianGrid, Legend, Cell 
 } from 'recharts';
-import { api } from '../api';
+import { api, API_BASE } from '../api';
 
 export default function DashboardScreen() {
   const [rangeDays, setRangeDays] = useState(30);
@@ -46,7 +46,7 @@ export default function DashboardScreen() {
   };
 
   const handleExport = (format) => {
-    window.open(`/api/report/export?days=${rangeDays}&format=${format}`, '_blank');
+    window.open(`${API_BASE}/report/export?days=${rangeDays}&format=${format}`, '_blank');
   };
 
   if (loading || !data) {
